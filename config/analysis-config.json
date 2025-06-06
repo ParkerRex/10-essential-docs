@@ -1,0 +1,190 @@
+{
+  "analysis": {
+    "depth": "comprehensive",
+    "timeout": 300,
+    "maxConcurrency": 4,
+    "includeTests": true,
+    "includeConfig": true,
+    "includeDocs": false,
+    "excludePatterns": [
+      "node_modules",
+      ".git",
+      "dist",
+      "build",
+      ".next",
+      "coverage",
+      "*.log",
+      "*.lock"
+    ],
+    "maxFileSize": "1MB",
+    "maxTotalFiles": 10000,
+    "languages": [
+      "typescript",
+      "javascript",
+      "python",
+      "go",
+      "rust",
+      "java",
+      "csharp",
+      "php"
+    ]
+  },
+  "detection": {
+    "packageFiles": [
+      "package.json",
+      "requirements.txt",
+      "go.mod",
+      "Cargo.toml",
+      "pom.xml",
+      "build.gradle",
+      "composer.json",
+      "Pipfile",
+      "pyproject.toml"
+    ],
+    "configFiles": [
+      "next.config.js",
+      "vite.config.ts",
+      "webpack.config.js",
+      "tsconfig.json",
+      "tailwind.config.js",
+      "drizzle.config.ts",
+      "prisma/schema.prisma",
+      ".env.example",
+      "docker-compose.yml",
+      "Dockerfile"
+    ],
+    "frameworkIndicators": {
+      "react": ["react", "@types/react", "next", "gatsby", "remix"],
+      "vue": ["vue", "nuxt", "@vue/cli"],
+      "angular": ["@angular/core", "@angular/cli"],
+      "svelte": ["svelte", "@sveltejs/kit"],
+      "express": ["express", "@types/express"],
+      "fastapi": ["fastapi", "uvicorn"],
+      "django": ["django", "djangorestframework"],
+      "flask": ["flask", "flask-restful"],
+      "gin": ["github.com/gin-gonic/gin"],
+      "echo": ["github.com/labstack/echo"],
+      "spring": ["org.springframework.boot"]
+    },
+    "authProviders": {
+      "supabase": ["@supabase/supabase-js", "@supabase/auth-helpers"],
+      "auth0": ["@auth0/auth0-react", "@auth0/nextjs-auth0"],
+      "firebase": ["firebase", "@firebase/auth"],
+      "nextauth": ["next-auth", "@next-auth/prisma-adapter"],
+      "passport": ["passport", "passport-local"],
+      "clerk": ["@clerk/nextjs", "@clerk/clerk-react"]
+    },
+    "databases": {
+      "postgresql": ["pg", "postgres", "postgresql", "@types/pg"],
+      "mysql": ["mysql", "mysql2", "@types/mysql"],
+      "mongodb": ["mongodb", "mongoose", "@types/mongodb"],
+      "sqlite": ["sqlite3", "better-sqlite3"],
+      "redis": ["redis", "ioredis", "@types/redis"],
+      "supabase": ["@supabase/supabase-js"],
+      "planetscale": ["@planetscale/database"],
+      "prisma": ["prisma", "@prisma/client"],
+      "drizzle": ["drizzle-orm", "drizzle-kit"]
+    },
+    "stateManagement": {
+      "react-query": ["@tanstack/react-query", "react-query"],
+      "swr": ["swr"],
+      "apollo": ["@apollo/client", "apollo-client"],
+      "redux": ["@reduxjs/toolkit", "redux", "react-redux"],
+      "zustand": ["zustand"],
+      "recoil": ["recoil"],
+      "jotai": ["jotai"],
+      "valtio": ["valtio"]
+    },
+    "styling": {
+      "tailwind": ["tailwindcss", "@tailwindcss/forms"],
+      "styled-components": ["styled-components"],
+      "emotion": ["@emotion/react", "@emotion/styled"],
+      "mui": ["@mui/material", "@material-ui/core"],
+      "chakra": ["@chakra-ui/react"],
+      "mantine": ["@mantine/core"],
+      "shadcn": ["@radix-ui/react-slot", "class-variance-authority"]
+    }
+  },
+  "extraction": {
+    "maxExamplesPerDomain": 5,
+    "minExampleLines": 10,
+    "maxExampleLines": 100,
+    "preferredPatterns": [
+      "hooks",
+      "components",
+      "services",
+      "middleware",
+      "utils",
+      "types",
+      "schemas"
+    ],
+    "includeComments": true,
+    "includeTypes": true,
+    "priorityFiles": [
+      "src/app/layout.tsx",
+      "src/pages/_app.tsx",
+      "src/main.tsx",
+      "src/index.tsx",
+      "app.py",
+      "main.py",
+      "main.go",
+      "server.js",
+      "index.js"
+    ],
+    "architecturalPatterns": {
+      "authentication": {
+        "filePatterns": ["**/auth/**", "**/login/**", "**/middleware/**"],
+        "functionPatterns": ["login", "logout", "authenticate", "authorize", "verify"],
+        "importPatterns": ["auth", "session", "jwt", "passport", "supabase"]
+      },
+      "components": {
+        "filePatterns": ["**/components/**", "**/ui/**", "**/design-system/**"],
+        "functionPatterns": ["component", "render", "useState", "useEffect"],
+        "importPatterns": ["react", "vue", "angular", "svelte"]
+      },
+      "state": {
+        "filePatterns": ["**/store/**", "**/state/**", "**/hooks/**"],
+        "functionPatterns": ["useState", "useQuery", "useMutation", "useStore"],
+        "importPatterns": ["react-query", "swr", "redux", "zustand", "recoil"]
+      },
+      "database": {
+        "filePatterns": ["**/db/**", "**/database/**", "**/models/**", "**/queries/**"],
+        "functionPatterns": ["query", "insert", "update", "delete", "select"],
+        "importPatterns": ["prisma", "drizzle", "mongoose", "sequelize"]
+      },
+      "api": {
+        "filePatterns": ["**/api/**", "**/routes/**", "**/controllers/**"],
+        "functionPatterns": ["get", "post", "put", "delete", "patch"],
+        "importPatterns": ["express", "fastapi", "gin", "echo", "trpc"]
+      }
+    }
+  },
+  "validation": {
+    "syntaxCheck": true,
+    "typeCheck": true,
+    "linkValidation": true,
+    "exampleValidation": true,
+    "consistencyCheck": true,
+    "completenessThreshold": 0.8,
+    "accuracyThreshold": 0.9,
+    "confidenceThreshold": 0.7
+  },
+  "output": {
+    "format": "markdown",
+    "includeMetadata": true,
+    "includeTOC": true,
+    "includeTimestamp": true,
+    "includeConfidenceScores": true,
+    "generateIndex": true,
+    "crossReference": true
+  },
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-4-turbo-preview",
+    "temperature": 0.1,
+    "maxTokens": 4000,
+    "retryAttempts": 3,
+    "retryDelay": 1000,
+    "rateLimitDelay": 100
+  }
+}

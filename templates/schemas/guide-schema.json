@@ -1,0 +1,543 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Technical Documentation Guide Schema",
+  "description": "Schema for AI-generated technical documentation guides",
+  "type": "object",
+  "required": [
+    "metadata",
+    "overview",
+    "architecture",
+    "implementation",
+    "examples",
+    "bestPractices",
+    "troubleshooting"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["title", "domain", "generated", "confidence"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Guide title"
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "authentication",
+            "components",
+            "state",
+            "backgroundJobs",
+            "fileStorage",
+            "database",
+            "errorHandling",
+            "testing",
+            "integration",
+            "deployment"
+          ]
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reviewRequired": {
+          "type": "boolean"
+        },
+        "technologies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "overview": {
+      "type": "object",
+      "required": ["description", "technologies", "responsibilities"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "High-level description of the architectural domain"
+        },
+        "technologies": {
+          "type": "object",
+          "properties": {
+            "primary": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "supporting": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "boundaries": {
+          "type": "object",
+          "properties": {
+            "includes": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "excludes": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "required": ["components", "patterns"],
+      "properties": {
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "purpose", "implementation"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "purpose": {
+                "type": "string"
+              },
+              "implementation": {
+                "type": "object",
+                "properties": {
+                  "technology": { "type": "string" },
+                  "location": { "type": "string" },
+                  "configuration": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "usage"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "usage": { "type": "string" },
+              "benefits": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "tradeoffs": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "dataFlow": {
+          "type": "object",
+          "properties": {
+            "description": { "type": "string" },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "step": { "type": "string" },
+                  "description": { "type": "string" },
+                  "components": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["setup", "configuration", "patterns"],
+      "properties": {
+        "setup": {
+          "type": "object",
+          "properties": {
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "version": { "type": "string" },
+                  "purpose": { "type": "string" }
+                }
+              }
+            },
+            "installation": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "initialization": {
+              "type": "string",
+              "description": "Code for initial setup"
+            }
+          }
+        },
+        "configuration": {
+          "type": "object",
+          "properties": {
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": { "type": "string" },
+                  "purpose": { "type": "string" },
+                  "content": { "type": "string" }
+                }
+              }
+            },
+            "environment": {
+              "type": "object",
+              "properties": {
+                "variables": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "required": { "type": "boolean" },
+                      "example": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "implementation"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "implementation": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string" },
+                  "filePath": { "type": "string" },
+                  "language": { "type": "string" },
+                  "explanation": { "type": "string" }
+                }
+              },
+              "usage": {
+                "type": "object",
+                "properties": {
+                  "when": { "type": "string" },
+                  "benefits": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "considerations": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "type": "object",
+      "required": ["realWorld"],
+      "properties": {
+        "realWorld": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "description", "code"],
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "code": {
+                "type": "object",
+                "required": ["content", "filePath", "language"],
+                "properties": {
+                  "content": { "type": "string" },
+                  "filePath": { "type": "string" },
+                  "language": { "type": "string" },
+                  "startLine": { "type": "number" },
+                  "endLine": { "type": "number" }
+                }
+              },
+              "context": {
+                "type": "object",
+                "properties": {
+                  "purpose": { "type": "string" },
+                  "dependencies": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "relatedFiles": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": { "type": "string" },
+              "examples": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "scenario": { "type": "string" },
+                    "implementation": { "type": "string" },
+                    "filePath": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "bestPractices": {
+      "type": "object",
+      "required": ["guidelines", "recommendations"],
+      "properties": {
+        "guidelines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["category", "practices"],
+            "properties": {
+              "category": { "type": "string" },
+              "practices": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "practice": { "type": "string" },
+                    "rationale": { "type": "string" },
+                    "example": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "recommendations": {
+          "type": "object",
+          "properties": {
+            "performance": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "security": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "maintainability": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "scalability": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "antiPatterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": { "type": "string" },
+              "problem": { "type": "string" },
+              "solution": { "type": "string" },
+              "detected": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "troubleshooting": {
+      "type": "object",
+      "required": ["commonIssues", "debugWorkflows"],
+      "properties": {
+        "commonIssues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["issue", "symptoms", "solutions"],
+            "properties": {
+              "issue": { "type": "string" },
+              "symptoms": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "solutions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "solution": { "type": "string" },
+                    "steps": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "code": { "type": "string" }
+                  }
+                }
+              },
+              "prevention": { "type": "string" }
+            }
+          }
+        },
+        "debugWorkflows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scenario": { "type": "string" },
+              "steps": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "tools": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "monitoring": {
+          "type": "object",
+          "properties": {
+            "metrics": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "alerts": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "dashboards": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "implementation_checklist": {
+      "type": "object",
+      "properties": {
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phase": { "type": "string" },
+              "description": { "type": "string" },
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "task": { "type": "string" },
+                    "completed": { "type": "boolean" },
+                    "priority": {
+                      "type": "string",
+                      "enum": ["high", "medium", "low"]
+                    },
+                    "dependencies": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "object",
+      "properties": {
+        "internal": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "path": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "external": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "url": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "codeFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" },
+              "purpose": { "type": "string" },
+              "relevance": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
