@@ -1,5 +1,32 @@
 # Automated Technical Documentation Generator
 
+![GitHub Banner](.github/assets/github1.png)
+
+## ⚠️ Alpha Warning
+
+**This project is currently in ALPHA stage. Use with caution!**
+
+This automated documentation system is experimental and under active development. While functional, it may produce unexpected results or require manual review of generated content. We recommend:
+
+- **Testing thoroughly** before using in production environments
+- **Reviewing all generated documentation** for accuracy
+- **Having backup documentation processes** in place
+- **Reporting issues** you encounter to help improve the system
+
+### Documentation Focus Areas
+
+The `refs/` directory contains examples of the types of architectural documentation this system can generate, including:
+- API architecture and design patterns
+- Data fetching strategies and implementation
+- Type systems and TypeScript configurations
+- Component architecture and design systems
+- Package management and monorepo structures
+- CDN and deployment configurations
+
+Use these references as inspiration for the comprehensive documentation areas this system can analyze and document for your codebase.
+
+---
+
 ## Overview
 
 This system automatically analyzes any codebase and generates comprehensive technical documentation following the 10 Essential Guides framework. Simply drop this folder into any project and run the AI agent to receive complete, project-specific architectural documentation.
